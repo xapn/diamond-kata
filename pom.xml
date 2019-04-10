@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.chrysocode</groupId>
-    <artifactId>java8-kata</artifactId>
+    <groupId>com.xavierpigeon</groupId>
+    <artifactId>diamond-kata</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <name>Code kata (to be named)</name>
+    <name>Diamond Kata</name>
     <description>Made from the code kata boilerplate provided by Chrysocode.</description>
     <url>https://github.com/${user.repository}</url>
     <inceptionYear>2019</inceptionYear>
@@ -59,7 +59,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.minimalVersion>3.5.0</maven.minimalVersion>
-        <user.repository>chrysocode/java8-code-kata-boilerplate</user.repository>
+        <user.repository>xapn/diamond-kata</user.repository>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -244,7 +244,7 @@
                     <artifactId>license-maven-plugin</artifactId>
                     <version>1.12</version>
                     <configuration>
-                        <projectName>Code Kata</projectName>
+                        <projectName>Diamond Kata</projectName>
                         <licenseName>gpl_v3</licenseName>
                         <ignoreNoFileToScan>true</ignoreNoFileToScan>
                     </configuration>
@@ -601,10 +601,10 @@
                                     <transformers>
                                         <transformer implementation=
                                                              "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                            <mainClass>kata.KataCli</mainClass>
+                                            <mainClass>kata.DiamondCli</mainClass>
                                         </transformer>
                                     </transformers>
-                                    <finalName>kata-standalone</finalName>
+                                    <finalName>diamond-kata-standalone</finalName>
                                 </configuration>
                             </execution>
                         </executions>

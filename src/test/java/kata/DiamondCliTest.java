@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Code Kata
+ * Diamond Kata
  * %%
  * Copyright (C) 2019 Chrysocode
  * %%
@@ -22,12 +22,16 @@
 
 package kata;
 
-/**
- * Main class for command line interface.
- */
-public class KataCli {
+import org.junit.jupiter.api.Test;
 
-    public static void main(String[] args) {
-        System.out.println("Master any code kata as a craftsman!");
+import static org.assertj.core.api.Assertions.assertThat;
+import static testasyouthink.TestAsYouThink.when;
+
+class DiamondCliTest {
+
+    @Test
+    void should_display_hello_world() {
+        when(() -> DiamondCli.main(null)).thenStandardOutput(
+                stdout -> assertThat(stdout).hasContent("Master any code kata as a craftsman!"));
     }
 }
