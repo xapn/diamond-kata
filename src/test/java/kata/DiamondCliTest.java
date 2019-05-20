@@ -44,4 +44,10 @@ class DiamondCliTest {
                         + "    B B\n" //
                         + "     A"));
     }
+
+    @Test
+    void should_print_an_error_message_given_nil() {
+        when(() -> DiamondCli.main(null)).thenStandardOutput(
+                stdout -> assertThat(stdout).hasContent("Letter missing!"));
+    }
 }
