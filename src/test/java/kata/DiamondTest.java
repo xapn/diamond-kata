@@ -22,47 +22,12 @@
 
 package kata;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
 class DiamondTest {
-
-    @Test
-    void should_fail_to_create_a_diamond_given_nil() {
-        whenOutsideOperatingConditions(() -> diamondOf(null))
-                .thenItFails()
-                .becauseOf(IllegalArgumentException.class)
-                .withMessage("Letter missing!");
-    }
-
-    @Test
-    void should_fail_to_create_a_diamond_given_no_letter() {
-        whenOutsideOperatingConditions(() -> diamondOf(""))
-                .thenItFails()
-                .becauseOf(IllegalArgumentException.class)
-                .withMessage("A letter is expected!");
-    }
-
-    @Test
-    void should_fail_to_create_a_diamond_given_anything_but_a_letter() {
-        whenOutsideOperatingConditions(() -> diamondOf("1"))
-                .thenItFails()
-                .becauseOf(IllegalArgumentException.class)
-                .withMessage("Only letters are expected!");
-    }
-
-    @Test
-    void should_fail_to_create_a_diamond_given_several_letters() {
-        whenOutsideOperatingConditions(() -> diamondOf("AB"))
-                .thenItFails()
-                .becauseOf(IllegalArgumentException.class)
-                .withMessage("Only one letter is expected!");
-    }
-
-    void diamondOf(String letter) {
-        new Letter(letter);
-    }
 
     static class Letter {
 
@@ -91,6 +56,47 @@ class DiamondTest {
 
         private boolean moreThanOneLetter() {
             return letter.length() > 1;
+        }
+
+    }
+
+    void diamondOf(String letter) {
+        new Letter(letter);
+    }
+
+    @Nested
+    class Given_an_invalid_letter {
+
+        @Test
+        void should_fail_to_create_a_diamond_given_nil() {
+            whenOutsideOperatingConditions(() -> diamondOf(null))
+                    .thenItFails()
+                    .becauseOf(IllegalArgumentException.class)
+                    .withMessage("Letter missing!");
+        }
+
+        @Test
+        void should_fail_to_create_a_diamond_given_no_letter() {
+            whenOutsideOperatingConditions(() -> diamondOf(""))
+                    .thenItFails()
+                    .becauseOf(IllegalArgumentException.class)
+                    .withMessage("A letter is expected!");
+        }
+
+        @Test
+        void should_fail_to_create_a_diamond_given_anything_but_a_letter() {
+            whenOutsideOperatingConditions(() -> diamondOf("1"))
+                    .thenItFails()
+                    .becauseOf(IllegalArgumentException.class)
+                    .withMessage("Only letters are expected!");
+        }
+
+        @Test
+        void should_fail_to_create_a_diamond_given_several_letters() {
+            whenOutsideOperatingConditions(() -> diamondOf("AB"))
+                    .thenItFails()
+                    .becauseOf(IllegalArgumentException.class)
+                    .withMessage("Only one letter is expected!");
         }
     }
 }
