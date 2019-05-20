@@ -61,26 +61,36 @@ class DiamondTest {
     }
 
     void diamondOf(String letter) {
-        validate(letter);
+        new Letter(letter);
     }
 
-    private void validate(String letter) {
-        if (letter == null) {
-            throw new IllegalArgumentException("Letter missing!");
-        } else if (letter.isEmpty()) {
-            throw new IllegalArgumentException("A letter is expected!");
-        } else if (containOtherThingsThanLetters(letter)) {
-            throw new IllegalArgumentException("Only letters are expected!");
-        } else if (moreThanOneLetter(letter)) {
-            throw new IllegalArgumentException("Only one letter is expected!");
+    static class Letter {
+
+        private final String letter;
+
+        Letter(String letter) {
+            this.letter = letter;
+            validate();
         }
-    }
 
-    private boolean moreThanOneLetter(String letter) {
-        return letter.length() > 1;
-    }
+        private void validate() {
+            if (letter == null) {
+                throw new IllegalArgumentException("Letter missing!");
+            } else if (letter.isEmpty()) {
+                throw new IllegalArgumentException("A letter is expected!");
+            } else if (otherThanLetters()) {
+                throw new IllegalArgumentException("Only letters are expected!");
+            } else if (moreThanOneLetter()) {
+                throw new IllegalArgumentException("Only one letter is expected!");
+            }
+        }
 
-    private boolean containOtherThingsThanLetters(String letter) {
-        return !letter.matches("^[A-Z]*$");
+        private boolean otherThanLetters() {
+            return !letter.matches("^[A-Z]*$");
+        }
+
+        private boolean moreThanOneLetter() {
+            return letter.length() > 1;
+        }
     }
 }
