@@ -27,9 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
-import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 import static testasyouthink.TestAsYouThink.resultOf;
 import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
@@ -37,7 +35,10 @@ class DiamondTest {
 
     String diamondOf(String letter) {
         new Letter(letter);
-        return letter;
+        return "A".equals(letter) ? letter : Stream
+                .of("A".codePointAt(0), letter.codePointAt(0))
+                .map(code -> String.valueOf((char) code.intValue()))
+                .collect(joining());
     }
 
     static class Letter {
@@ -80,15 +81,7 @@ class DiamondTest {
 
         @Test
         void should_create_a_diamond_given_B() {
-            resultOf(() -> diamondOf("B")).isEqualTo("B");
-            resultOf(() -> {
-                String letter = "B";
-                return
-                        Stream
-                        .of("A".codePointAt(0), letter.codePointAt(0))
-                        .map(code -> String.valueOf((char) code.intValue()))
-                        .collect(joining());
-            }).isEqualTo("AB");
+            resultOf(() -> diamondOf("B")).isEqualTo("AB");
         }
     }
 
