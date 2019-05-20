@@ -34,6 +34,7 @@ import static java.util.Collections.reverse;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.rangeClosed;
+import static java.util.stream.Stream.generate;
 import static testasyouthink.TestAsYouThink.resultOf;
 import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
@@ -75,7 +76,9 @@ class DiamondTest {
         }
 
         private String indentation(Integer code) {
-            return code == CODE_OF_A ? " " : "";
+            return generate(() -> " ")
+                    .limit(givenLetter.getCode() - code)
+                    .collect(joining());
         }
 
         private String spacing(Integer code) {
@@ -142,11 +145,11 @@ class DiamondTest {
 
         @Test
         void should_create_a_diamond_given_C() {
-            resultOf(() -> Diamond.of("C")).isEqualTo(" A\n" //
-                    + "B B\n" //
+            resultOf(() -> Diamond.of("C")).isEqualTo("  A\n" //
+                    + " B B\n" //
                     + "C   C\n" //
-                    + "B B\n" //
-                    + " A");
+                    + " B B\n" //
+                    + "  A");
         }
     }
 
