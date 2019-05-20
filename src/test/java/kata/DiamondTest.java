@@ -83,8 +83,10 @@ class DiamondTest {
             resultOf(() -> diamondOf("B")).isEqualTo("B");
             resultOf(() -> {
                 String letter = "B";
-                return Stream
-                        .of("A", letter)
+                return
+                        Stream
+                        .of("A".codePointAt(0), letter.codePointAt(0))
+                        .map(code -> String.valueOf((char) code.intValue()))
                         .collect(joining());
             }).isEqualTo("AB");
         }
