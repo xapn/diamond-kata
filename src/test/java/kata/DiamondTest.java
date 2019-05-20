@@ -34,13 +34,15 @@ import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
 class DiamondTest {
 
+    private static final int CODE_OF_A = "A".codePointAt(0);
+
     String diamondOf(String letter) {
-        new Letter(letter);
-        if ("A".equals(letter)) {
+        Letter givenLetter = new Letter(letter);
+        if (givenLetter.isA()) {
             return letter;
         } else {
             return Stream
-                    .of("A".codePointAt(0), letter.codePointAt(0))
+                    .of(CODE_OF_A, givenLetter.getCode())
                     .map(code -> valueOf((char) code.intValue()))
                     .collect(joining());
         }
@@ -73,6 +75,14 @@ class DiamondTest {
 
         private boolean moreThanOneLetter() {
             return letter.length() > 1;
+        }
+
+        boolean isA() {
+            return "A".equals(letter);
+        }
+
+        int getCode() {
+            return letter.codePointAt(0);
         }
     }
 
