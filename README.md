@@ -1,6 +1,32 @@
-# Code Kata: \<name it\>
+# Code Kata: Diamond
 
-What code kata do you choose to solve today? Explain the game rules here. Please keep explanations below about the boilerplate as it is.
+[![LoC](https://tokei.rs/b1/github/xapn/diamond-kata?category=code)](https://github.com/xapn/diamond-kata)
+[![Files](https://tokei.rs/b1/github/xapn/diamond-kata?category=files)](https://github.com/xapn/diamond-kata)
+[![Total lines](https://tokei.rs/b1/github/xapn/diamond-kata?category=lines)](https://github.com/xapn/diamond-kata)
+[![Comments](https://tokei.rs/b1/github/xapn/diamond-kata?category=comments)](https://github.com/xapn/diamond-kata)
+[![Blank lines](https://tokei.rs/b1/github/xapn/diamond-kata?category=blanks)](https://github.com/xapn/diamond-kata)
+[![TestAsYouThink badge](https://img.shields.io/badge/Tests%20as%20first--class%20citizens%20with-TestAsYouThink-brightgreen.svg)](https://testasyouthink.org)
+
+Given a single letter, print a diamond starting with 'A' with the supplied letter at the widest point.
+
+Example for 'A':
+<pre>
+A
+</pre>
+Example for 'B':
+<pre>
+ A
+B B
+ A
+</pre>
+Example for 'C':
+<pre>
+  A
+ B B
+C   C
+ B B
+  A
+</pre>
 
 # Code Kata Boilerplate for Java 8
 
