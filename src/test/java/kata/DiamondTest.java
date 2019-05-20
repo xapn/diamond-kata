@@ -25,10 +25,9 @@ package kata;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.stream.Stream;
-
 import static java.lang.String.valueOf;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.IntStream.rangeClosed;
 import static testasyouthink.TestAsYouThink.resultOf;
 import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
@@ -52,9 +51,8 @@ class DiamondTest {
             if (givenLetter.isA()) {
                 return givenLetter.value();
             } else {
-                return Stream
-                        .of(CODE_OF_A, givenLetter.getCode())
-                        .map(this::lineOf)
+                return rangeClosed(CODE_OF_A, givenLetter.getCode())
+                        .mapToObj(this::lineOf)
                         .collect(joining("\n", "", "\n A"));
             }
         }
@@ -127,6 +125,14 @@ class DiamondTest {
         void should_create_a_diamond_given_B() {
             resultOf(() -> Diamond.of("B")).isEqualTo(" A\n" //
                     + "B B\n" //
+                    + " A");
+        }
+
+        @Test
+        void should_create_a_diamond_given_C() {
+            resultOf(() -> Diamond.of("C")).isEqualTo(" A\n" //
+                    + "B B\n" //
+                    + "C C\n" //
                     + " A");
         }
     }
