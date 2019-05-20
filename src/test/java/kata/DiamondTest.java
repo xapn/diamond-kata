@@ -43,7 +43,8 @@ class DiamondTest {
         } else {
             return Stream
                     .of(CODE_OF_A, givenLetter.getCode())
-                    .map(code -> valueOf((char) code.intValue()))
+                    .map(code -> code == CODE_OF_A ? valueOf((char) code.intValue()) : valueOf(
+                            (char) code.intValue()) + valueOf((char) code.intValue()))
                     .collect(joining());
         }
     }
@@ -96,7 +97,7 @@ class DiamondTest {
 
         @Test
         void should_create_a_diamond_given_B() {
-            resultOf(() -> diamondOf("B")).isEqualTo("AB");
+            resultOf(() -> diamondOf("B")).isEqualTo("ABB");
         }
     }
 
