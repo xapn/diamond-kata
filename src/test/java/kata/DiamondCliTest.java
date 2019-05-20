@@ -22,6 +22,7 @@
 
 package kata;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,15 +46,19 @@ class DiamondCliTest {
                         + "     A"));
     }
 
-    @Test
-    void should_print_an_error_message_given_nil() {
-        when(() -> DiamondCli.main(null)).thenStandardOutput(
-                stdout -> assertThat(stdout).hasContent("Letter missing!"));
-    }
+    @Nested
+    class Given_an_invalid_letter {
 
-    @Test
-    void should_print_an_error_message_given_several_letters() {
-        when(() -> DiamondCli.main(new String[]{"A", "B"})).thenStandardOutput(
-                stdout -> assertThat(stdout).hasContent("Only one letter is expected!"));
+        @Test
+        void should_print_an_error_message_given_nil() {
+            when(() -> DiamondCli.main(null)).thenStandardOutput(
+                    stdout -> assertThat(stdout).hasContent("Letter missing!"));
+        }
+
+        @Test
+        void should_print_an_error_message_given_several_letters() {
+            when(() -> DiamondCli.main(new String[]{"A", "B"})).thenStandardOutput(
+                    stdout -> assertThat(stdout).hasContent("Only one letter is expected!"));
+        }
     }
 }
