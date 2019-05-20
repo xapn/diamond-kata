@@ -69,10 +69,18 @@ class DiamondTest {
             throw new IllegalArgumentException("Letter missing!");
         } else if (letter.isEmpty()) {
             throw new IllegalArgumentException("A letter is expected!");
-        } else if (!letter.matches("^[A-Z]*$")) {
+        } else if (containOtherThingsThanLetters(letter)) {
             throw new IllegalArgumentException("Only letters are expected!");
-        } else if (letter.length() > 1) {
+        } else if (moreThanOneLetter(letter)) {
             throw new IllegalArgumentException("Only one letter is expected!");
         }
+    }
+
+    private boolean moreThanOneLetter(String letter) {
+        return letter.length() > 1;
+    }
+
+    private boolean containOtherThingsThanLetters(String letter) {
+        return !letter.matches("^[A-Z]*$");
     }
 }
