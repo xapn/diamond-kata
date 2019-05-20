@@ -61,6 +61,10 @@ class DiamondTest {
     }
 
     void diamondOf(String letter) {
+        validate(letter);
+    }
+
+    private void validate(String letter) {
         if (letter == null) {
             throw new IllegalArgumentException("Letter missing!");
         } else if (letter.isEmpty()) {
