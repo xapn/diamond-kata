@@ -43,6 +43,8 @@ class DiamondTest {
     public static class Diamond {
 
         private static final int CODE_OF_A = "A".codePointAt(0);
+        private static final String LINE_SEPARATOR = "\n";
+        private static final String ONE_SPACE = " ";
         private final Letter givenLetter;
 
         private Diamond(String letter) {
@@ -60,10 +62,7 @@ class DiamondTest {
                     .collect(toList());
             List<String> downHalf = new ArrayList<>(topHalf.subList(0, topHalf.size() - 1));
             reverse(downHalf);
-            return Stream
-                    .of(topHalf, downHalf)
-                    .flatMap(List::stream)
-                    .collect(joining("\n"));
+            return assembly(topHalf, downHalf);
         }
 
         private String lineOf(Integer code) {
@@ -72,7 +71,7 @@ class DiamondTest {
         }
 
         private String indentation(Integer code) {
-            return generate(() -> " ")
+            return generate(() -> ONE_SPACE)
                     .limit(givenLetter.getCode() - code)
                     .collect(joining());
         }
@@ -81,6 +80,13 @@ class DiamondTest {
             return generate(() -> " ")
                     .limit(2 * (code - CODE_OF_A - 1) + 1)
                     .collect(joining());
+        }
+
+        private String assembly(List<String> topHalf, List<String> downHalf) {
+            return Stream
+                    .of(topHalf, downHalf)
+                    .flatMap(List::stream)
+                    .collect(joining(LINE_SEPARATOR));
         }
     }
 
