@@ -55,19 +55,15 @@ class DiamondTest {
         }
 
         private String crystallize() {
-            if (givenLetter.isA()) {
-                return givenLetter.value();
-            } else {
-                List<String> topHalf = rangeClosed(CODE_OF_A, givenLetter.getCode())
-                        .mapToObj(this::lineOf)
-                        .collect(toList());
-                List<String> downHalf = new ArrayList<>(topHalf.subList(0, topHalf.size() - 1));
-                reverse(downHalf);
-                return Stream
-                        .of(topHalf, downHalf)
-                        .flatMap(List::stream)
-                        .collect(joining("\n"));
-            }
+            List<String> topHalf = rangeClosed(CODE_OF_A, givenLetter.getCode())
+                    .mapToObj(this::lineOf)
+                    .collect(toList());
+            List<String> downHalf = new ArrayList<>(topHalf.subList(0, topHalf.size() - 1));
+            reverse(downHalf);
+            return Stream
+                    .of(topHalf, downHalf)
+                    .flatMap(List::stream)
+                    .collect(joining("\n"));
         }
 
         private String lineOf(Integer code) {
@@ -115,16 +111,8 @@ class DiamondTest {
             return letter.length() > 1;
         }
 
-        boolean isA() {
-            return "A".equals(letter);
-        }
-
         int getCode() {
             return letter.codePointAt(0);
-        }
-
-        String value() {
-            return letter;
         }
     }
 
