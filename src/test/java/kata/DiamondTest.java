@@ -24,29 +24,20 @@ package kata;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static testasyouthink.TestAsYouThink.givenSut;
-import static testasyouthink.TestAsYouThink.resultOf;
-import static testasyouthink.TestAsYouThink.when;
+import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
 class DiamondTest {
 
     @Test
-    void should_behave_given_context() {
-        // Choose the proper syntax for your test case.
-
-        resultOf(() -> "TestAsYouThink").isEqualTo("TestAsYouThink");
-
-        when(() -> "TestAsYouThink").then(result -> {
-            assertThat(result)
-                    .startsWith("Test")
-                    .hasSize(14);
-        });
-
-        givenSut(StringBuilder::new)
-                .whenSutRuns(sut -> sut
-                        .append("TestAsYouThink")
-                        .reverse())
-                .then(sut -> assertThat(sut).containsSequence("knihTuoYsAtseT"));
+    void should_fail_to_create_a_diamond_given_nil() {
+        whenOutsideOperatingConditions(() -> {
+            String letter = null;
+            if (letter == null) {
+                throw new IllegalArgumentException("Letter missing!");
+            }
+        })
+                .thenItFails()
+                .becauseOf(IllegalArgumentException.class)
+                .withMessage("Letter missing!");
     }
 }
