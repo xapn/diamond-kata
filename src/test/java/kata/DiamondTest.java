@@ -25,107 +25,10 @@ package kata;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static java.lang.String.valueOf;
-import static java.util.Collections.reverse;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.IntStream.rangeClosed;
-import static java.util.stream.Stream.generate;
 import static testasyouthink.TestAsYouThink.resultOf;
 import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
 class DiamondTest {
-
-    public static class Diamond {
-
-        private static final int CODE_OF_A = "A".codePointAt(0);
-        private static final String LINE_SEPARATOR = "\n";
-        private static final String ONE_SPACE = " ";
-        private final Letter givenLetter;
-
-        private Diamond(String letter) {
-            givenLetter = new Letter(letter);
-        }
-
-        public static String of(String letter) {
-            Diamond diamond = new Diamond(letter);
-            return diamond.crystallize();
-        }
-
-        private String crystallize() {
-            List<String> topHalf = rangeClosed(CODE_OF_A, givenLetter.getCode())
-                    .mapToObj(this::lineOf)
-                    .collect(toList());
-            List<String> downHalf = new ArrayList<>(topHalf.subList(0, topHalf.size() - 1));
-            reverse(downHalf);
-            return assembly(topHalf, downHalf);
-        }
-
-        private String lineOf(Integer code) {
-            String letterForLine = valueOf((char) code.intValue());
-            return indentation(code) + (code == CODE_OF_A ? letterForLine : letterForLine + spacing(
-                    code) + letterForLine);
-        }
-
-        private String indentation(Integer code) {
-            return repeatSpace(givenLetter.getCode() - code);
-        }
-
-        private String spacing(Integer code) {
-            return repeatSpace(2 * (code - CODE_OF_A - 1) + 1);
-        }
-
-        private String repeatSpace(Integer times) {
-            return generate(() -> ONE_SPACE)
-                    .limit(times)
-                    .collect(joining());
-        }
-
-        private String assembly(List<String> topHalf, List<String> downHalf) {
-            return Stream
-                    .of(topHalf, downHalf)
-                    .flatMap(List::stream)
-                    .collect(joining(LINE_SEPARATOR));
-        }
-    }
-
-    static class Letter {
-
-        private final String letter;
-
-        Letter(String letter) {
-            this.letter = letter;
-            validate();
-        }
-
-        private void validate() {
-            if (letter == null) {
-                throw new IllegalArgumentException("Letter missing!");
-            } else if (letter.isEmpty()) {
-                throw new IllegalArgumentException("A letter is expected!");
-            } else if (otherThanLetters()) {
-                throw new IllegalArgumentException("Only letters are expected!");
-            } else if (moreThanOneLetter()) {
-                throw new IllegalArgumentException("Only one letter is expected!");
-            }
-        }
-
-        private boolean otherThanLetters() {
-            return !letter.matches("^[A-Z]*$");
-        }
-
-        private boolean moreThanOneLetter() {
-            return letter.length() > 1;
-        }
-
-        int getCode() {
-            return letter.codePointAt(0);
-        }
-    }
 
     @Nested
     class Given_a_valid_letter {
