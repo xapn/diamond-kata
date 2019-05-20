@@ -34,32 +34,43 @@ import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
 class DiamondTest {
 
-    private static final int CODE_OF_A = "A".codePointAt(0);
+    public static class Diamond {
 
-    String diamondOf(String letter) {
-        Letter givenLetter = new Letter(letter);
-        if (givenLetter.isA()) {
-            return letter;
-        } else {
-            return Stream
-                    .of(CODE_OF_A, givenLetter.getCode())
-                    .map(this::lineOf)
-                    .collect(joining("\n", "", "\n A"));
+        private static final int CODE_OF_A = "A".codePointAt(0);
+        private final Letter givenLetter;
+
+        private Diamond(String letter) {
+            givenLetter = new Letter(letter);
         }
-    }
 
-    private String lineOf(Integer code) {
-        return indentation(code) + (code == CODE_OF_A ? valueOf(
-                (char) code.intValue()) : valueOf((char) code.intValue()) + spacing() + valueOf(
-                (char) code.intValue()));
-    }
+        public static String of(String letter) {
+            Diamond diamond = new Diamond(letter);
+            return diamond.crystallize();
+        }
 
-    private String indentation(Integer code) {
-        return code == CODE_OF_A ? " " : "";
-    }
+        private String crystallize() {
+            if (givenLetter.isA()) {
+                return givenLetter.value();
+            } else {
+                return Stream
+                        .of(CODE_OF_A, givenLetter.getCode())
+                        .map(this::lineOf)
+                        .collect(joining("\n", "", "\n A"));
+            }
+        }
 
-    private String spacing() {
-        return " ";
+        private String lineOf(Integer code) {
+            return indentation(code) + (code == CODE_OF_A ? valueOf((char) code.intValue()) : valueOf(
+                    (char) code.intValue()) + spacing() + valueOf((char) code.intValue()));
+        }
+
+        private String indentation(Integer code) {
+            return code == CODE_OF_A ? " " : "";
+        }
+
+        private String spacing() {
+            return " ";
+        }
     }
 
     static class Letter {
@@ -98,6 +109,10 @@ class DiamondTest {
         int getCode() {
             return letter.codePointAt(0);
         }
+
+        String value() {
+            return letter;
+        }
     }
 
     @Nested
@@ -105,12 +120,12 @@ class DiamondTest {
 
         @Test
         void should_create_a_diamond_splinter_given_A() {
-            resultOf(() -> diamondOf("A")).isEqualTo("A");
+            resultOf(() -> Diamond.of("A")).isEqualTo("A");
         }
 
         @Test
         void should_create_a_diamond_given_B() {
-            resultOf(() -> diamondOf("B")).isEqualTo(" A\n" //
+            resultOf(() -> Diamond.of("B")).isEqualTo(" A\n" //
                     + "B B\n" //
                     + " A");
         }
@@ -121,7 +136,7 @@ class DiamondTest {
 
         @Test
         void should_fail_to_create_a_diamond_given_nil() {
-            whenOutsideOperatingConditions(() -> diamondOf(null))
+            whenOutsideOperatingConditions(() -> Diamond.of(null))
                     .thenItFails()
                     .becauseOf(IllegalArgumentException.class)
                     .withMessage("Letter missing!");
@@ -129,7 +144,7 @@ class DiamondTest {
 
         @Test
         void should_fail_to_create_a_diamond_given_no_letter() {
-            whenOutsideOperatingConditions(() -> diamondOf(""))
+            whenOutsideOperatingConditions(() -> Diamond.of(""))
                     .thenItFails()
                     .becauseOf(IllegalArgumentException.class)
                     .withMessage("A letter is expected!");
@@ -137,7 +152,7 @@ class DiamondTest {
 
         @Test
         void should_fail_to_create_a_diamond_given_anything_but_a_letter() {
-            whenOutsideOperatingConditions(() -> diamondOf("1"))
+            whenOutsideOperatingConditions(() -> Diamond.of("1"))
                     .thenItFails()
                     .becauseOf(IllegalArgumentException.class)
                     .withMessage("Only letters are expected!");
@@ -145,7 +160,7 @@ class DiamondTest {
 
         @Test
         void should_fail_to_create_a_diamond_given_several_letters() {
-            whenOutsideOperatingConditions(() -> diamondOf("AB"))
+            whenOutsideOperatingConditions(() -> Diamond.of("AB"))
                     .thenItFails()
                     .becauseOf(IllegalArgumentException.class)
                     .withMessage("Only one letter is expected!");
