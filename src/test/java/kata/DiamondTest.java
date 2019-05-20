@@ -71,15 +71,15 @@ class DiamondTest {
 
         private String lineOf(Integer code) {
             return indentation(code) + (code == CODE_OF_A ? valueOf((char) code.intValue()) : valueOf(
-                    (char) code.intValue()) + spacing() + valueOf((char) code.intValue()));
+                    (char) code.intValue()) + spacing(code) + valueOf((char) code.intValue()));
         }
 
         private String indentation(Integer code) {
             return code == CODE_OF_A ? " " : "";
         }
 
-        private String spacing() {
-            return " ";
+        private String spacing(Integer code) {
+            return code == CODE_OF_A + 1 ? " " : "   ";
         }
     }
 
@@ -144,7 +144,7 @@ class DiamondTest {
         void should_create_a_diamond_given_C() {
             resultOf(() -> Diamond.of("C")).isEqualTo(" A\n" //
                     + "B B\n" //
-                    + "C C\n" //
+                    + "C   C\n" //
                     + "B B\n" //
                     + " A");
         }
