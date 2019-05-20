@@ -43,11 +43,23 @@ class DiamondTest {
         } else {
             return Stream
                     .of(CODE_OF_A, givenLetter.getCode())
-                    .map(code -> (code == CODE_OF_A ? " " : "") + (code == CODE_OF_A ? valueOf(
-                            (char) code.intValue()) : valueOf((char) code.intValue()) + " " + valueOf(
-                            (char) code.intValue())))
+                    .map(this::lineOf)
                     .collect(joining("\n", "", "\n A"));
         }
+    }
+
+    private String lineOf(Integer code) {
+        return indentation(code) + (code == CODE_OF_A ? valueOf(
+                (char) code.intValue()) : valueOf((char) code.intValue()) + spacing() + valueOf(
+                (char) code.intValue()));
+    }
+
+    private String indentation(Integer code) {
+        return code == CODE_OF_A ? " " : "";
+    }
+
+    private String spacing() {
+        return " ";
     }
 
     static class Letter {
