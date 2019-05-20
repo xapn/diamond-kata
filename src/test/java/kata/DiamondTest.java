@@ -32,7 +32,7 @@ class DiamondTest {
 
     String diamondOf(String letter) {
         new Letter(letter);
-        return "A";
+        return letter;
     }
 
     static class Letter {
@@ -71,6 +71,11 @@ class DiamondTest {
         @Test
         void should_create_a_diamond_splinter_given_A() {
             resultOf(() -> diamondOf("A")).isEqualTo("A");
+        }
+
+        @Test
+        void should_create_a_diamond_given_B() {
+            resultOf(() -> diamondOf("B")).isEqualTo("B");
         }
     }
 
