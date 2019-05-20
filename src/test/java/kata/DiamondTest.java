@@ -30,16 +30,25 @@ class DiamondTest {
 
     @Test
     void should_fail_to_create_a_diamond_given_nil() {
-        whenOutsideOperatingConditions(() -> diamondOf())
+        whenOutsideOperatingConditions(() -> diamondOf(null))
                 .thenItFails()
                 .becauseOf(IllegalArgumentException.class)
                 .withMessage("Letter missing!");
     }
 
-    void diamondOf() {
-        String letter = null;
+    @Test
+    void should_fail_to_create_a_diamond_given_no_letter() {
+        whenOutsideOperatingConditions(() -> diamondOf(""))
+                .thenItFails()
+                .becauseOf(IllegalArgumentException.class)
+                .withMessage("A letter is expected!");
+    }
+
+    void diamondOf(String letter) {
         if (letter == null) {
             throw new IllegalArgumentException("Letter missing!");
+        } else if (letter.isEmpty()) {
+            throw new IllegalArgumentException("A letter is expected!");
         }
     }
 }
