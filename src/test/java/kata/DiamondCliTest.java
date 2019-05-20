@@ -30,8 +30,18 @@ import static testasyouthink.TestAsYouThink.when;
 class DiamondCliTest {
 
     @Test
-    void should_display_hello_world() {
-        when(() -> DiamondCli.main(null)).thenStandardOutput(
-                stdout -> assertThat(stdout).hasContent("Master any code kata as a craftsman!"));
+    void should_print_a_diamond_in_the_console() {
+        when(() -> DiamondCli.main(new String[]{"F"})).thenStandardOutput(
+                stdout -> assertThat(stdout).hasContent("     A\n" //
+                        + "    B B\n" //
+                        + "   C   C\n" //
+                        + "  D     D\n" //
+                        + " E       E\n" //
+                        + "F         F\n" //
+                        + " E       E\n" //
+                        + "  D     D\n" //
+                        + "   C   C\n" //
+                        + "    B B\n" //
+                        + "     A"));
     }
 }

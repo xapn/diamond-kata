@@ -28,6 +28,6 @@ package kata;
 public class DiamondCli {
 
     public static void main(String[] args) {
-        System.out.println("Master any code kata as a craftsman!");
+        System.out.println(Diamond.of(args[0]));
     }
 }
