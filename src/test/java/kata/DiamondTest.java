@@ -78,7 +78,9 @@ class DiamondTest {
         }
 
         private String spacing(Integer code) {
-            return code == CODE_OF_A + 1 ? " " : "   ";
+            return generate(() -> " ")
+                    .limit(2 * (code - CODE_OF_A - 1) + 1)
+                    .collect(joining());
         }
     }
 
@@ -138,6 +140,17 @@ class DiamondTest {
                     + "C   C\n" //
                     + " B B\n" //
                     + "  A");
+        }
+
+        @Test
+        void should_create_a_diamond_given_D() {
+            resultOf(() -> Diamond.of("D")).isEqualTo("   A\n" //
+                    + "  B B\n" //
+                    + " C   C\n" //
+                    + "D     D\n" //
+                    + " C   C\n" //
+                    + "  B B\n" //
+                    + "   A");
         }
     }
 
