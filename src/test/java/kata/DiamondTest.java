@@ -52,6 +52,14 @@ class DiamondTest {
                 .withMessage("Only letters are expected!");
     }
 
+    @Test
+    void should_fail_to_create_a_diamond_given_several_letters() {
+        whenOutsideOperatingConditions(() -> diamondOf("AB"))
+                .thenItFails()
+                .becauseOf(IllegalArgumentException.class)
+                .withMessage("Only one letter is expected!");
+    }
+
     void diamondOf(String letter) {
         if (letter == null) {
             throw new IllegalArgumentException("Letter missing!");
@@ -59,6 +67,8 @@ class DiamondTest {
             throw new IllegalArgumentException("A letter is expected!");
         } else if (!letter.matches("^[A-Z]*$")) {
             throw new IllegalArgumentException("Only letters are expected!");
+        } else if (letter.length() > 1) {
+            throw new IllegalArgumentException("Only one letter is expected!");
         }
     }
 }
