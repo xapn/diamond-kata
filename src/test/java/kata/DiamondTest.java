@@ -25,6 +25,11 @@ package kata;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Stream;
+
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 import static testasyouthink.TestAsYouThink.resultOf;
 import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
@@ -76,6 +81,12 @@ class DiamondTest {
         @Test
         void should_create_a_diamond_given_B() {
             resultOf(() -> diamondOf("B")).isEqualTo("B");
+            resultOf(() -> {
+                String letter = "B";
+                return Stream
+                        .of("A", letter)
+                        .collect(joining());
+            }).isEqualTo("AB");
         }
     }
 
