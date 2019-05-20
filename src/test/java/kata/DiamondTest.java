@@ -45,7 +45,7 @@ class DiamondTest {
                     .of(CODE_OF_A, givenLetter.getCode())
                     .map(code -> code == CODE_OF_A ? valueOf((char) code.intValue()) : valueOf(
                             (char) code.intValue()) + " " + valueOf((char) code.intValue()))
-                    .collect(joining("", "", "A"));
+                    .collect(joining("\n", "", "\nA"));
         }
     }
 
@@ -97,7 +97,9 @@ class DiamondTest {
 
         @Test
         void should_create_a_diamond_given_B() {
-            resultOf(() -> diamondOf("B")).isEqualTo("AB BA");
+            resultOf(() -> diamondOf("B")).isEqualTo("A\n" //
+                    + "B B\n" //
+                    + "A");
         }
     }
 
