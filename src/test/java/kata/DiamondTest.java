@@ -25,9 +25,15 @@ package kata;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import static testasyouthink.TestAsYouThink.resultOf;
 import static testasyouthink.TestAsYouThink.whenOutsideOperatingConditions;
 
 class DiamondTest {
+
+    String diamondOf(String letter) {
+        new Letter(letter);
+        return "A";
+    }
 
     static class Letter {
 
@@ -57,11 +63,15 @@ class DiamondTest {
         private boolean moreThanOneLetter() {
             return letter.length() > 1;
         }
-
     }
 
-    void diamondOf(String letter) {
-        new Letter(letter);
+    @Nested
+    class Given_a_valid_letter {
+
+        @Test
+        void should_create_a_diamond_splinter_given_A() {
+            resultOf(() -> diamondOf("A")).isEqualTo("A");
+        }
     }
 
     @Nested
