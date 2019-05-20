@@ -22,6 +22,8 @@
 
 package kata;
 
+import static java.lang.String.join;
+
 /**
  * Main class for command line interface.
  */
@@ -29,7 +31,7 @@ public class DiamondCli {
 
     public static void main(String[] args) {
         try {
-            System.out.println(Diamond.of(args == null ? null : args[0]));
+            System.out.println(Diamond.of(args == null ? null : join("", args)));
         } catch (Exception exception) {
             System.err.println(exception.getMessage());
         }

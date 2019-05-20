@@ -50,4 +50,10 @@ class DiamondCliTest {
         when(() -> DiamondCli.main(null)).thenStandardOutput(
                 stdout -> assertThat(stdout).hasContent("Letter missing!"));
     }
+
+    @Test
+    void should_print_an_error_message_given_several_letters() {
+        when(() -> DiamondCli.main(new String[]{"A", "B"})).thenStandardOutput(
+                stdout -> assertThat(stdout).hasContent("Only one letter is expected!"));
+    }
 }
