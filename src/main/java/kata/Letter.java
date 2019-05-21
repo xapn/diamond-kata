@@ -44,7 +44,7 @@ class Letter {
     }
 
     private boolean otherThanLetters() {
-        return !letter.matches("^[A-Z]*$");
+        return !letter.matches("^[A-Za-z]*$");
     }
 
     private boolean moreThanOneLetter() {
@@ -53,5 +53,9 @@ class Letter {
 
     int getCode() {
         return letter.codePointAt(0);
+    }
+
+    String getValue() {
+        return letter;
     }
 }

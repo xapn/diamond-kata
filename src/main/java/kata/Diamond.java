@@ -50,7 +50,9 @@ public class Diamond {
     }
 
     private String crystallize() {
-        List<String> topHalf = rangeClosed(CODE_OF_A, givenLetter.getCode())
+        List<String> topHalf = rangeClosed(givenLetter
+                .getValue()
+                .matches("^[A-Z]$") ? CODE_OF_A : "a".codePointAt(0), givenLetter.getCode())
                 .mapToObj(this::lineOf)
                 .collect(toList());
         List<String> downHalf = new ArrayList<>(topHalf.subList(0, topHalf.size() - 1));
@@ -60,7 +62,8 @@ public class Diamond {
 
     private String lineOf(Integer code) {
         String letterForLine = valueOf((char) code.intValue());
-        return indentation(code) + (code == CODE_OF_A ? letterForLine : letterForLine + spacing(code) + letterForLine);
+        return indentation(code) + (code == CODE_OF_A || code == "a".codePointAt(
+                0) ? letterForLine : letterForLine + spacing(code) + letterForLine);
     }
 
     private String indentation(Integer code) {
