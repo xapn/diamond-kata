@@ -69,6 +69,13 @@ class DiamondTest {
         void should__create_a_diamond_given_a() {
             resultOf(() -> Diamond.of("a")).isEqualTo("a");
         }
+
+        @Test
+        void should_create_a_diamond_given_b() {
+            resultOf(() -> Diamond.of("b")).isEqualTo(" a\n" //
+                    + "b b\n" //
+                    + " a");
+        }
     }
 
     @Nested

@@ -77,7 +77,7 @@ public class Diamond {
     }
 
     private String spacing(Integer code) {
-        return repeatSpace(2 * (code - CODE_OF_BIG_A - 1) + 1);
+        return repeatSpace(2 * (code - firstCode() - 1) + 1);
     }
 
     private String repeatSpace(Integer times) {
