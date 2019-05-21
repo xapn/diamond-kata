@@ -33,36 +33,56 @@ class DiamondTest {
     @Nested
     class Given_a_valid_letter {
 
-        @Test
-        void should_create_a_diamond_splinter_given_A() {
-            resultOf(() -> Diamond.of("A")).isEqualTo("A");
+        @Nested
+        class Given_an_uppercase_letter {
+
+            @Test
+            void should_create_a_diamond_splinter_given_A() {
+                resultOf(() -> Diamond.of("A")).isEqualTo("A");
+            }
+
+            @Test
+            void should_create_a_diamond_given_B() {
+                resultOf(() -> Diamond.of("B")).isEqualTo(" A\n" //
+                        + "B B\n" //
+                        + " A");
+            }
+
+            @Test
+            void should_create_a_diamond_given_C() {
+                resultOf(() -> Diamond.of("C")).isEqualTo("  A\n" //
+                        + " B B\n" //
+                        + "C   C\n" //
+                        + " B B\n" //
+                        + "  A");
+            }
+
+            @Test
+            void should_create_a_diamond_given_D() {
+                resultOf(() -> Diamond.of("D")).isEqualTo("   A\n" //
+                        + "  B B\n" //
+                        + " C   C\n" //
+                        + "D     D\n" //
+                        + " C   C\n" //
+                        + "  B B\n" //
+                        + "   A");
+            }
         }
 
-        @Test
-        void should_create_a_diamond_given_B() {
-            resultOf(() -> Diamond.of("B")).isEqualTo(" A\n" //
-                    + "B B\n" //
-                    + " A");
-        }
+        @Nested
+        class Given_a_lowercase_letter {
 
-        @Test
-        void should_create_a_diamond_given_C() {
-            resultOf(() -> Diamond.of("C")).isEqualTo("  A\n" //
-                    + " B B\n" //
-                    + "C   C\n" //
-                    + " B B\n" //
-                    + "  A");
-        }
+            @Test
+            void should__create_a_diamond_given_a() {
+                resultOf(() -> Diamond.of("a")).isEqualTo("a");
+            }
 
-        @Test
-        void should_create_a_diamond_given_D() {
-            resultOf(() -> Diamond.of("D")).isEqualTo("   A\n" //
-                    + "  B B\n" //
-                    + " C   C\n" //
-                    + "D     D\n" //
-                    + " C   C\n" //
-                    + "  B B\n" //
-                    + "   A");
+            @Test
+            void should_create_a_diamond_given_b() {
+                resultOf(() -> Diamond.of("b")).isEqualTo(" a\n" //
+                        + "b b\n" //
+                        + " a");
+            }
         }
     }
 
