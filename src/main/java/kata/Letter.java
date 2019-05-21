@@ -22,8 +22,14 @@
 
 package kata;
 
+import java.util.stream.IntStream;
+
+import static java.util.stream.IntStream.rangeClosed;
+
 class Letter {
 
+    static final int CODE_OF_BIG_A = "A".codePointAt(0);
+    static final int CODE_OF_LITTLE_A = "a".codePointAt(0);
     private final String letter;
 
     Letter(String letter) {
@@ -51,11 +57,19 @@ class Letter {
         return letter.length() > 1;
     }
 
+    IntStream streamOfCodes() {
+        return rangeClosed(matchingFirstCode(), getCode());
+    }
+
+    int matchingFirstCode() {
+        return isUpperCase() ? CODE_OF_BIG_A : CODE_OF_LITTLE_A;
+    }
+
     int getCode() {
         return letter.codePointAt(0);
     }
 
-    boolean isUpperCase() {
+    private boolean isUpperCase() {
         return letter.matches("^[A-Z]$");
     }
 }
