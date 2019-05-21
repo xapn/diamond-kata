@@ -35,7 +35,8 @@ import static java.util.stream.Stream.generate;
 
 public class Diamond {
 
-    private static final int CODE_OF_A = "A".codePointAt(0);
+    private static final int CODE_OF_BIG_A = "A".codePointAt(0);
+    private static final int CODE_OF_LITTLE_A = "a".codePointAt(0);
     private static final String LINE_SEPARATOR = "\n";
     private static final String ONE_SPACE = " ";
     private final Letter givenLetter;
@@ -50,9 +51,7 @@ public class Diamond {
     }
 
     private String crystallize() {
-        List<String> topHalf = rangeClosed(givenLetter
-                .getValue()
-                .matches("^[A-Z]$") ? CODE_OF_A : "a".codePointAt(0), givenLetter.getCode())
+        List<String> topHalf = rangeClosed(firstCode(), givenLetter.getCode())
                 .mapToObj(this::lineOf)
                 .collect(toList());
         List<String> downHalf = new ArrayList<>(topHalf.subList(0, topHalf.size() - 1));
@@ -60,10 +59,17 @@ public class Diamond {
         return assembly(topHalf, downHalf);
     }
 
+    private int firstCode() {
+        return givenLetter.isUpperCase() ? CODE_OF_BIG_A : CODE_OF_LITTLE_A;
+    }
+
     private String lineOf(Integer code) {
         String letterForLine = valueOf((char) code.intValue());
-        return indentation(code) + (code == CODE_OF_A || code == "a".codePointAt(
-                0) ? letterForLine : letterForLine + spacing(code) + letterForLine);
+        return indentation(code) + (isA(code) ? letterForLine : letterForLine + spacing(code) + letterForLine);
+    }
+
+    private boolean isA(Integer code) {
+        return code == CODE_OF_BIG_A || code == CODE_OF_LITTLE_A;
     }
 
     private String indentation(Integer code) {
@@ -71,7 +77,7 @@ public class Diamond {
     }
 
     private String spacing(Integer code) {
-        return repeatSpace(2 * (code - CODE_OF_A - 1) + 1);
+        return repeatSpace(2 * (code - CODE_OF_BIG_A - 1) + 1);
     }
 
     private String repeatSpace(Integer times) {
