@@ -52,7 +52,8 @@ public class Diamond {
 
     private String crystallize() {
         List<String> topHalf = rangeClosed(firstCode(), givenLetter.getCode())
-                .mapToObj(this::lineOf)
+                .mapToObj(Line::new)
+                .map(Line::build)
                 .collect(toList());
         List<String> downHalf = new ArrayList<>(topHalf.subList(0, topHalf.size() - 1));
         reverse(downHalf);
@@ -63,33 +64,42 @@ public class Diamond {
         return givenLetter.isUpperCase() ? CODE_OF_BIG_A : CODE_OF_LITTLE_A;
     }
 
-    private String lineOf(Integer code) {
-        String letterForLine = valueOf((char) code.intValue());
-        return indentation(code) + (isA(code) ? letterForLine : letterForLine + spacing(code) + letterForLine);
-    }
-
-    private boolean isA(Integer code) {
-        return code == CODE_OF_BIG_A || code == CODE_OF_LITTLE_A;
-    }
-
-    private String indentation(Integer code) {
-        return repeatSpace(givenLetter.getCode() - code);
-    }
-
-    private String spacing(Integer code) {
-        return repeatSpace(2 * (code - firstCode() - 1) + 1);
-    }
-
-    private String repeatSpace(Integer times) {
-        return generate(() -> ONE_SPACE)
-                .limit(times)
-                .collect(joining());
-    }
-
     private String assembly(List<String> topHalf, List<String> downHalf) {
         return Stream
                 .of(topHalf, downHalf)
                 .flatMap(List::stream)
                 .collect(joining(LINE_SEPARATOR));
+    }
+
+    private class Line {
+
+        private final Integer code;
+
+        private Line(Integer code) {
+            this.code = code;
+        }
+
+        private String build() {
+            String letterForLine = valueOf((char) code.intValue());
+            return indentation() + (isA() ? letterForLine : letterForLine + spacing() + letterForLine);
+        }
+
+        private boolean isA() {
+            return code == CODE_OF_BIG_A || code == CODE_OF_LITTLE_A;
+        }
+
+        private String indentation() {
+            return repeatSpace(givenLetter.getCode() - code);
+        }
+
+        private String spacing() {
+            return repeatSpace(2 * (code - firstCode() - 1) + 1);
+        }
+
+        private String repeatSpace(Integer times) {
+            return generate(() -> ONE_SPACE)
+                    .limit(times)
+                    .collect(joining());
+        }
     }
 }
