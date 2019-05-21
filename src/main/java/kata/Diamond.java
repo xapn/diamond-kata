@@ -87,7 +87,7 @@ public class Diamond {
         }
 
         private String spacing() {
-            return repeatSpace(2 * (code - givenLetter.matchingFirstCode() - 1) + 1);
+            return repeatSpace(2 * (code - givenLetter.getMatchingFirstCode() - 1) + 1);
         }
 
         private String repeatSpace(Integer times) {

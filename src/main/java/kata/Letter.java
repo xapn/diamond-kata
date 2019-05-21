@@ -31,10 +31,12 @@ class Letter {
     static final int CODE_OF_BIG_A = "A".codePointAt(0);
     static final int CODE_OF_LITTLE_A = "a".codePointAt(0);
     private final String letter;
+    private int matchingFirstCode;
 
     Letter(String letter) {
         this.letter = letter;
         validate();
+        matchingFirstCode = isUpperCase() ? CODE_OF_BIG_A : CODE_OF_LITTLE_A;
     }
 
     private void validate() {
@@ -58,11 +60,11 @@ class Letter {
     }
 
     IntStream streamOfCodes() {
-        return rangeClosed(matchingFirstCode(), getCode());
+        return rangeClosed(matchingFirstCode, getCode());
     }
 
-    int matchingFirstCode() {
-        return isUpperCase() ? CODE_OF_BIG_A : CODE_OF_LITTLE_A;
+    int getMatchingFirstCode() {
+        return matchingFirstCode;
     }
 
     int getCode() {
